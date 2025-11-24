@@ -9,7 +9,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     background: ${({ theme }) => theme.colors.beige};
-    font-family: 'Inter', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
     color: ${({ theme }) => theme.colors.black};
   }
 
@@ -20,5 +20,6 @@ export const GlobalStyles = createGlobalStyle`
 
   button {
     cursor: pointer;
+    font-family: inherit;
   }
 `;

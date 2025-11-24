@@ -48,4 +48,6 @@ export const theme = {
     lg: "@media (min-width: 1024px)",
     xl: "@media (min-width: 1280px)",
   },
-};
+} as const;
+
+export type AppTheme = typeof theme;
