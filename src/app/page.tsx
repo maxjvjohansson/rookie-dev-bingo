@@ -7,14 +7,6 @@ const Container = styled.section`
   max-width: ${({ theme }) => theme.breakpoints.xl};
 `;
 
-const Title = styled.h1`
-  font-size: ${({ theme }) => theme.typography["3xl"]};
-`;
-
 export default function HomePage() {
-  return (
-    <Container>
-      <Title>WU24 LIA-Bingo</Title>
-    </Container>
-  );
+  return <Container></Container>;
 }
