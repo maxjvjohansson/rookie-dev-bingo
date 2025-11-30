@@ -58,8 +58,9 @@ export const SwitchText = styled.p`
     text-decoration: none;
 
     &:hover {
+      color: ${({ theme }) => theme.colors.purpleLight};
       text-decoration: underline;
-      text-decoration-color: ${({ theme }) => theme.colors.purple};
+      text-decoration-color: ${({ theme }) => theme.colors.purpleLight};
     }
   }
 `;
@@ -72,23 +73,23 @@ export const Button = styled.button`
   border-radius: ${({ theme }) => theme.radius.md};
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: 0.2s ease;
 
   &:hover {
-    opacity: 0.85;
+    background: ${({ theme }) => theme.colors.purpleLight};
   }
 `;
 
 export const InputError = styled.p`
-  color: red;
+  color: ${({ theme }) => theme.colors.red};
   font-size: ${({ theme }) => theme.typography.xs};
   margin-top: -${({ theme }) => theme.spacing.xxs};
   margin-bottom: ${({ theme }) => theme.spacing.xs};
 `;
 
 export const FormError = styled.p`
-  color: red;
-  font-weight: 600;
+  color: ${({ theme }) => theme.colors.red};
+  font-size: ${({ theme }) => theme.typography.sm};
   text-align: center;
   margin-bottom: ${({ theme }) => theme.spacing.md};
 `;
