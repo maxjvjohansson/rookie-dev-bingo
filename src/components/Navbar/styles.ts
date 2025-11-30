@@ -43,18 +43,18 @@ export const DesktopLinks = styled.div`
 export const NavLink = styled(Link)`
   position: relative;
   color: ${({ theme }) => theme.colors.black};
-  font-size: ${({ theme }) => theme.typography.md};
+  font-size: ${({ theme }) => theme.typography.sm};
   font-weight: 400;
+  text-transform: uppercase;
   text-decoration: none;
-  padding: 2px 0;
 
   &::after {
     content: "";
     position: absolute;
     left: 0;
-    bottom: -2px;
+    bottom: -1px;
     width: 0%;
-    height: 2px;
+    height: 1px;
     background-color: ${({ theme }) => theme.colors.black};
     transition: width 0.3s ease-in-out;
   }
@@ -118,9 +118,10 @@ export const MobileMenu = styled.div<{ open: boolean }>`
 export const MobileLink = styled(Link)`
   padding: ${({ theme }) => theme.spacing.md};
   color: ${({ theme }) => theme.colors.black};
-  font-size: ${({ theme }) => theme.typography.md};
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.typography.sm};
+  font-weight: 400;
   text-decoration: none;
+  text-transform: uppercase;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray};
