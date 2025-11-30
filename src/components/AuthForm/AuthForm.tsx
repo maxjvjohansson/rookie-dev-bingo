@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import Link from "next/link";
+import { useAuth } from "@/hooks/useAuth";
+import { validateAuthFields } from "@/lib/validation/auth";
+
 import {
   Wrapper,
   Card,
@@ -14,59 +17,39 @@ import {
   SwitchText,
   FormError,
 } from "./styles";
-import Link from "next/link";
 
 interface Props {
   mode: "login" | "signup";
 }
 
 export default function AuthForm({ mode }: Props) {
+  const { login, signup, loading, error } = useAuth();
+
   const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [confirm, setConfirm] = useState("");
 
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [formError, setFormError] = useState("");
-
-  const supabase = createClient();
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
-    setEmailError("");
-    setPasswordError("");
-    setFormError("");
 
-    let resultError = null;
+    const validationErrors = validateAuthFields(
+      { email, password, confirm, fullName },
+      mode
+    );
 
-    if (mode === "signup") {
-      const { error } = await supabase.auth.signUp({ email, password });
-      resultError = error;
+    setFieldErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) return;
+
+    if (mode === "login") {
+      const ok = await login(email, password);
+      if (ok) window.location.href = "/board";
     } else {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      resultError = error;
-    }
-
-    setLoading(false);
-
-    if (!resultError) {
-      window.location.href = "/board";
-      return;
-    }
-
-    if (resultError.message.includes("email")) {
-      setEmailError(resultError.message);
-    } else if (
-      resultError.message.toLowerCase().includes("password") ||
-      resultError.message.toLowerCase().includes("credentials")
-    ) {
-      setPasswordError(resultError.message);
-    } else {
-      setFormError(resultError.message);
+      const user = await signup(email, password, fullName);
+      if (user) window.location.href = "/board";
     }
   }
 
@@ -75,32 +58,57 @@ export default function AuthForm({ mode }: Props) {
       <Card>
         <Title>{mode === "login" ? "Log In" : "Create Account"}</Title>
 
-        {formError && <FormError>{formError}</FormError>}
+        {error && <FormError>{error}</FormError>}
 
         <Form onSubmit={handleSubmit}>
+          {mode === "signup" && (
+            <>
+              <Label>Full name</Label>
+              <Input
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Enter your full name"
+              />
+              {fieldErrors.fullName && (
+                <InputError>{fieldErrors.fullName}</InputError>
+              )}
+            </>
+          )}
+
           <Label>Email</Label>
           <Input
             type="email"
-            required
-            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
           />
-          {emailError && <InputError>{emailError}</InputError>}
+          {fieldErrors.email && <InputError>{fieldErrors.email}</InputError>}
 
           <Label>Password</Label>
           <Input
             type="password"
-            required
-            autoComplete={
-              mode === "signup" ? "new-password" : "current-password"
-            }
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
           />
-          {passwordError && <InputError>{passwordError}</InputError>}
+          {fieldErrors.password && (
+            <InputError>{fieldErrors.password}</InputError>
+          )}
+
+          {mode === "signup" && (
+            <>
+              <Label>Confirm Password</Label>
+              <Input
+                type="password"
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+                placeholder="Confirm your password"
+              />
+              {fieldErrors.confirm && (
+                <InputError>{fieldErrors.confirm}</InputError>
+              )}
+            </>
+          )}
 
           <Button type="submit" disabled={loading}>
             {loading ? "Loading..." : mode === "login" ? "Log In" : "Sign Up"}

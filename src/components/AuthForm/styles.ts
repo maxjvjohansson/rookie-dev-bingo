@@ -39,14 +39,18 @@ export const Input = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: ${({ theme }) => theme.radius.md};
   font-size: ${({ theme }) => theme.typography.md};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.grayDark};
+  }
 `;
 
 export const SwitchText = styled.p`
   text-align: center;
   font-size: ${({ theme }) => theme.typography.sm};
-  color: ${({ theme }) => theme.colors.gray};
+  color: ${({ theme }) => theme.colors.grayDark};
   margin-top: ${({ theme }) => theme.spacing.sm};
-  font-weight: 500;
+  font-weight: 400;
 
   a {
     color: ${({ theme }) => theme.colors.purple};
