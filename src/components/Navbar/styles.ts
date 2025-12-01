@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
+import Image from "next/image";
 
 export const NavbarContainer = styled.nav`
   width: 100%;
@@ -15,6 +16,30 @@ export const Inner = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+`;
+
+export const LeftZone = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const CenterZone = styled.div`
+  display: none;
+
+  ${({ theme }) => theme.media.md} {
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing.lg};
+  }
+`;
+
+export const RightZone = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.md};
 `;
 
 export const LogoWrapper = styled.div`
@@ -23,10 +48,9 @@ export const LogoWrapper = styled.div`
   gap: ${({ theme }) => theme.spacing.xs};
 `;
 
-export const LogoTitle = styled.span`
-  color: ${({ theme }) => theme.colors.black};
-  font-size: ${({ theme }) => theme.typography.lg};
-  font-weight: 700;
+export const Logo = styled(Image)`
+  width: ${({ theme }) => theme.spacing.xl};
+  height: auto;
 `;
 
 // Desktop Links
@@ -61,6 +85,33 @@ export const NavLink = styled(Link)`
 
   &:hover::after {
     width: 100%;
+  }
+`;
+
+// Dropdown Items
+export const Dropdown = styled.div`
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: ${({ theme }) => theme.colors.white};
+  border-radius: ${({ theme }) => theme.radius.md};
+  box-shadow: ${({ theme }) => theme.shadow.md};
+  padding: ${({ theme }) => theme.spacing.sm} 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+  z-index: 999;
+`;
+
+export const DropdownItem = styled(Link)`
+  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
+  color: ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.typography.sm};
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.gray};
   }
 `;
 
