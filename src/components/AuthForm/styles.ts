@@ -12,7 +12,7 @@ export const Wrapper = styled.section`
 export const Card = styled.div`
   background: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.spacing.lg};
-  border-radius: ${({ theme }) => theme.radius.lg};
+  border-radius: ${({ theme }) => theme.radius.md};
   border: 1px solid ${({ theme }) => theme.colors.gray};
   width: 100%;
   max-width: 400px;
@@ -27,7 +27,7 @@ export const Title = styled.h2`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm};
+  gap: ${({ theme }) => theme.spacing.xxs};
 `;
 
 export const Label = styled.label`
@@ -38,7 +38,7 @@ export const Input = styled.input`
   padding: ${({ theme }) => theme.spacing.xs};
   border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: ${({ theme }) => theme.radius.md};
-  font-size: ${({ theme }) => theme.typography.md};
+  font-size: ${({ theme }) => theme.typography.sm};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.grayDark};
@@ -66,6 +66,7 @@ export const SwitchText = styled.p`
 `;
 
 export const Button = styled.button`
+  margin-top: ${({ theme }) => theme.spacing.sm};
   padding: ${({ theme }) => theme.spacing.sm};
   background: ${({ theme }) => theme.colors.purple};
   border: none;

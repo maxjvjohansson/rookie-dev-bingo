@@ -23,6 +23,9 @@ export default async function RootLayout({
   const user = await getUser();
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.svg" />
+      </head>
       <body className={`${inter.variable} antialiased`}>
         <StyledComponentsRegistry>
           <ClientWrapper>

@@ -18,6 +18,7 @@ import {
 } from "./styles";
 import { Avatar } from "@/components/Avatar/Avatar";
 import logo from "@/assets/images/logo.svg";
+import Link from "next/link";
 
 export default function Navbar({ user }: { user: any }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -49,7 +50,9 @@ export default function Navbar({ user }: { user: any }) {
       {/* Desktop Nav */}
       <Inner>
         <LeftZone>
-          <Logo src={logo} alt="Logo" />
+          <Link href="/">
+            <Logo src={logo} alt="Logo" loading="eager" />
+          </Link>
         </LeftZone>
 
         <CenterZone>

@@ -91,22 +91,23 @@ export const NavLink = styled(Link)`
 // Dropdown Items
 export const Dropdown = styled.div`
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 0.5rem);
   right: 0;
   background: ${({ theme }) => theme.colors.white};
-  border-radius: ${({ theme }) => theme.radius.md};
+  border-radius: ${({ theme }) => theme.radius.sm};
   box-shadow: ${({ theme }) => theme.shadow.md};
   padding: ${({ theme }) => theme.spacing.sm} 0;
   display: flex;
   flex-direction: column;
-  min-width: 150px;
-  z-index: 999;
+  min-width: 200px;
+  z-index: 1000;
 `;
 
 export const DropdownItem = styled(Link)`
   padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
   color: ${({ theme }) => theme.colors.black};
   font-size: ${({ theme }) => theme.typography.sm};
+  text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
 
