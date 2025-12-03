@@ -9,7 +9,11 @@ export const HeroWrapper = styled.section`
   justify-content: center;
   align-items: center;
   padding: ${({ theme }) => `${theme.spacing.xxl} ${theme.spacing.md}`};
-  background: ${({ theme }) => theme.colors.beige};
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.beige} 0%,
+    #f5f1e8 100%
+  );
   text-align: center;
   position: relative;
 `;
@@ -42,6 +46,7 @@ export const Headline = styled.h1`
   color: ${({ theme }) => theme.colors.black};
   font-weight: 700;
   margin-bottom: ${({ theme }) => theme.spacing.md};
+  line-height: 1.2;
 
   ${({ theme }) => theme.media.md} {
     font-size: ${({ theme }) => theme.typography["3xl"]};
@@ -55,13 +60,20 @@ export const Subtext = styled.p`
   margin-bottom: ${({ theme }) => theme.spacing.xl};
   color: ${({ theme }) => theme.colors.black};
   font-size: ${({ theme }) => theme.typography.md};
-  font-weight: 300;
+  font-weight: 400;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.lg};
 `;
 
 export const CTAButton = styled(Link)`
   padding: ${({ theme }) => theme.spacing.sm};
   background: ${({ theme }) => theme.colors.purple};
-  border: none;
+  border: 2px solid ${({ theme }) => theme.colors.purple};
   color: white;
   border-radius: ${({ theme }) => theme.radius.md};
   font-weight: 600;
@@ -70,16 +82,29 @@ export const CTAButton = styled(Link)`
 
   &:hover {
     background: ${({ theme }) => theme.colors.purpleLight};
+    border-color: ${({ theme }) => theme.colors.purpleLight};
   }
 `;
 
 export const SecondaryLink = styled(Link)`
-  display: block;
-  margin-top: ${({ theme }) => theme.spacing.sm};
-  color: ${({ theme }) => theme.colors.black};
+  padding: ${({ theme }) => theme.spacing.sm};
+  color: ${({ theme }) => theme.colors.purple};
   font-size: ${({ theme }) => theme.typography.sm};
+  font-weight: 600;
+  border: 2px solid ${({ theme }) => theme.colors.purple};
+  border-radius: ${({ theme }) => theme.radius.md};
+  transition: 0.2s ease;
 
   &:hover {
-    text-decoration: underline;
+    background: ${({ theme }) => theme.colors.purple};
+    color: white;
   }
+`;
+
+export const AccentSpan = styled.span`
+  background: ${({ theme }) => theme.colors.purple};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
 `;

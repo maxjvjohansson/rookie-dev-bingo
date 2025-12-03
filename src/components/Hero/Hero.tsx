@@ -10,6 +10,8 @@ import {
   Logo,
   SecondaryLink,
   Subtext,
+  AccentSpan,
+  ButtonWrapper,
 } from "./styles";
 import BallpitAnimation from "../BallpitAnimation/BallpitAnimation";
 
@@ -19,16 +21,20 @@ export default function Hero() {
       <HeroContent>
         <Logo src={logo} alt="WU24 Logo" />
 
-        <Headline>Track your internship journey with WU24 LIA Bingo</Headline>
+        <Headline>
+          Track your internship journey with{" "}
+          <AccentSpan>WU24 LIA Bingo</AccentSpan>
+        </Headline>
 
         <Subtext>
           Hit your developer milestones, celebrate your wins, and compete with
           your classmates during your internship.
         </Subtext>
 
-        <CTAButton href="/board">Go to My Board</CTAButton>
-
-        <SecondaryLink href="/leaderboard">View Leaderboard →</SecondaryLink>
+        <ButtonWrapper>
+          <CTAButton href="/board">Go to My Board</CTAButton>
+          <SecondaryLink href="/leaderboard">View Leaderboard →</SecondaryLink>
+        </ButtonWrapper>
       </HeroContent>
       <AnimationWrapper>
         <BallpitAnimation
