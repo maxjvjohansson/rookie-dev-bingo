@@ -11,6 +11,20 @@ export const HeroWrapper = styled.section`
   padding: ${({ theme }) => `${theme.spacing.xxl} ${theme.spacing.md}`};
   background: ${({ theme }) => theme.colors.beige};
   text-align: center;
+  position: relative;
+`;
+
+export const HeroContent = styled.div`
+  z-index: 2;
+`;
+
+export const AnimationWrapper = styled.div`
+  position: absolute;
+  overflow: hidden;
+  min-height: 100vh;
+  max-height: 100vh;
+  width: 100%;
+  z-index: 1;
 `;
 
 export const Logo = styled(Image)`
