@@ -52,9 +52,9 @@ export const tiles = {
     "Wrote TODO comments you’ll never return to",
     "Talked for 30 seconds while muted",
   ],
-} as const;
+};
 
-export const bingoTiles = [
+export const bingoTiles: string[] = [
   ...tiles.rookieMistakes,
   ...tiles.wins,
   ...tiles.relatable,
