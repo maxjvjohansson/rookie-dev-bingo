@@ -1,4 +1,6 @@
-export const tiles = {
+import { TileCategory } from "@/types/boardTypes";
+
+export const tiles: Record<TileCategory, string[]> = {
   rookieMistakes: [
     "Force-pushed to main (oops)",
     "Pushed directly to main without a branch",
@@ -49,13 +51,18 @@ export const tiles = {
     "Spent half a day renaming files",
     "Accidentally joined the wrong meeting",
     "Pretended to understand something and Googled later",
-    "Wrote TODO comments you’ll never return to",
+    "Wrote TODO comments you'll never return to",
     "Talked for 30 seconds while muted",
   ],
 };
 
-export const bingoTiles: string[] = [
-  ...tiles.rookieMistakes,
-  ...tiles.wins,
-  ...tiles.relatable,
-];
+export const bingoTiles: string[] = Object.values(tiles).flat();
+
+export function getCategoryForTile(text: string): TileCategory {
+  for (const [category, tileList] of Object.entries(tiles)) {
+    if (tileList.includes(text)) {
+      return category as TileCategory;
+    }
+  }
+  return "rookieMistakes";
+}
