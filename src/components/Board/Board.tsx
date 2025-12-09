@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { updateUserBoard } from "@/lib/supabase/boardClient";
 import { BoardTile } from "@/types/boardTypes";
 import {
   BoardWrapper,
@@ -12,40 +13,39 @@ import {
   TileText,
 } from "./styles";
 
-interface BoardProps {
+interface Props {
   initialBoard: BoardTile[];
+  userId: string;
 }
 
-const BINGO_LETTERS: string[] = ["B", "I", "N", "G", "O"];
+export default function Board({ initialBoard, userId }: Props) {
+  const [board, setBoard] = useState(initialBoard);
 
-export default function Board({ initialBoard }: BoardProps) {
-  const [board, setBoard] = useState<BoardTile[]>(initialBoard);
-
-  const handleTileClick = (id: string) => {
-    setBoard((prevBoard) =>
-      prevBoard.map((tile) =>
-        tile.id === id ? { ...tile, checked: !tile.checked } : tile
-      )
+  const toggle = async (id: string) => {
+    const updated = board.map((t) =>
+      t.id === id ? { ...t, checked: !t.checked } : t
     );
+
+    setBoard(updated);
+
+    await updateUserBoard(userId, updated);
   };
+
+  const bingoLetters: string[] = ["B", "I", "N", "G", "O"];
 
   return (
     <BoardWrapper>
       <BoardContainer>
         <Header>
-          {BINGO_LETTERS.map((letter) => (
+          {bingoLetters.map((letter: string) => (
             <HeaderLetter key={letter}>{letter}</HeaderLetter>
           ))}
         </Header>
 
         <Grid>
-          {board.map((tile) => (
-            <Tile
-              key={tile.id}
-              checked={tile.checked}
-              onClick={() => handleTileClick(tile.id)}
-            >
-              <TileText>{tile.text}</TileText>
+          {board.map((t) => (
+            <Tile key={t.id} checked={t.checked} onClick={() => toggle(t.id)}>
+              <TileText>{t.text}</TileText>
             </Tile>
           ))}
         </Grid>

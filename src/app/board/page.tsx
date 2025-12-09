@@ -1,20 +1,17 @@
-"use client";
-
 import Board from "@/components/Board/Board";
-import { generateUserBoard } from "@/utils/generateBoard";
-import { useEffect, useState } from "react";
+import { getUser } from "@/lib/supabase/getUser";
+import { getOrCreateUserBoard } from "@/lib/supabase/board";
 import { BoardTile } from "@/types/boardTypes";
+import { redirect } from "next/navigation";
 
-export default function BoardPage() {
-  const [board, setBoard] = useState<BoardTile[]>([]);
+export default async function BoardPage() {
+  const user = await getUser();
 
-  useEffect(() => {
-    setBoard(generateUserBoard());
-  }, []);
-
-  if (board.length === 0) {
-    return <div>Loading...</div>;
+  if (!user) {
+    redirect("/login");
   }
 
-  return <Board initialBoard={board} />;
+  const board: BoardTile[] = await getOrCreateUserBoard(user.id);
+
+  return <Board initialBoard={board} userId={user.id} />;
 }
