@@ -4,6 +4,7 @@ import Link from "next/link";
 
 export const HeroWrapper = styled.section`
   width: 100%;
+  height: calc(100vh - 166.5px);
   display: flex;
   flex-direction: column;
   justify-content: center;

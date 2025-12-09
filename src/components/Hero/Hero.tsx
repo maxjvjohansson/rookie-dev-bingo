@@ -14,8 +14,13 @@ import {
   ButtonWrapper,
 } from "./styles";
 import BallpitAnimation from "../BallpitAnimation/BallpitAnimation";
+import { useScreenSize } from "@/hooks/useScreenSize";
+import { theme } from "@/styles/theme";
 
 export default function Hero() {
+  const desktopBreakpoint: number = parseInt(theme.breakpoints.md);
+  const isMobile: boolean = useScreenSize(desktopBreakpoint);
+
   return (
     <HeroWrapper>
       <HeroContent>
@@ -37,13 +42,24 @@ export default function Hero() {
         </ButtonWrapper>
       </HeroContent>
       <AnimationWrapper>
-        <BallpitAnimation
-          count={75}
-          gravity={0.01}
-          friction={0.9975}
-          wallBounce={0.95}
-          followCursor={true}
-        />
+        {!isMobile && (
+          <BallpitAnimation
+            count={75}
+            gravity={0.01}
+            friction={0.9975}
+            wallBounce={0.95}
+            followCursor={true}
+          />
+        )}
+        {isMobile && (
+          <BallpitAnimation
+            count={30}
+            gravity={0.01}
+            friction={0.9975}
+            wallBounce={0.95}
+            followCursor={true}
+          />
+        )}
       </AnimationWrapper>
     </HeroWrapper>
   );
