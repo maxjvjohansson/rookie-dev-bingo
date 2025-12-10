@@ -11,6 +11,7 @@ import {
   Grid,
   Tile,
   TileText,
+  Button,
 } from "./styles";
 
 interface Props {
@@ -33,8 +34,15 @@ export default function Board({ initialBoard, userId }: Props) {
 
   const bingoLetters: string[] = ["B", "I", "N", "G", "O"];
 
+  const handleNewBoardClick = async () => {
+    const res = await fetch("/api/board/regenerate", { method: "POST" });
+    const newBoard = await res.json();
+    setBoard(newBoard);
+  };
+
   return (
     <BoardWrapper>
+      <Button onClick={handleNewBoardClick}>Generate New Board</Button>
       <BoardContainer>
         <Header>
           {bingoLetters.map((letter: string) => (

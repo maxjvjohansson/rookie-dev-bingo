@@ -7,6 +7,22 @@ export const BoardWrapper = styled.section`
   padding: ${({ theme }) => theme.spacing.lg};
 `;
 
+export const Button = styled.button`
+  margin-top: ${({ theme }) => theme.spacing.sm};
+  padding: ${({ theme }) => theme.spacing.sm};
+  background: ${({ theme }) => theme.colors.purple};
+  border: none;
+  color: white;
+  border-radius: ${({ theme }) => theme.radius.md};
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.purpleLight};
+  }
+`;
+
 export const BoardContainer = styled.div`
   display: flex;
   flex-direction: column;

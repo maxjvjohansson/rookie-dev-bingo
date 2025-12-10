@@ -27,3 +27,19 @@ export async function getOrCreateUserBoard(userId: string) {
 
   return newBoard;
 }
+
+export async function regenerateBoardForUser(userId: string) {
+  const supabase = await createClient();
+  const newBoard = generateUserBoard();
+
+  await supabase
+    .from("boards")
+    .update({
+      board: newBoard,
+      checked_count: 0,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("user_id", userId);
+
+  return newBoard;
+}
