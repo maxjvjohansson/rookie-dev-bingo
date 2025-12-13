@@ -2,6 +2,8 @@ export const theme = {
   colors: {
     purple: "#813D9A",
     purpleLight: "#9c51b5ff",
+    pink: "#bfa3c6",
+    pinkLight: "#f2ebf3",
     yellow: "#FFDC4C",
     red: "#d82038ff",
     beige: "#f4f3f1ff",

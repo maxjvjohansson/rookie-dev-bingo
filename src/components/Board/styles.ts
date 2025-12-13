@@ -2,9 +2,7 @@ import styled from "styled-components";
 
 export const BoardWrapper = styled.section`
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: ${({ theme }) => theme.spacing.lg};
+  padding: ${({ theme }) => theme.spacing.xl};
 `;
 
 export const Button = styled.button`
@@ -24,12 +22,12 @@ export const Button = styled.button`
 `;
 
 export const BoardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.xs};
-  background: ${({ theme }) => theme.colors.white};
+  max-width: 900px;
+  margin: 0 auto;
+  background: ${({ theme }) => theme.colors.pink};
   padding: ${({ theme }) => theme.spacing.lg};
-  border-radius: ${({ theme }) => theme.radius.lg};
+  border-radius: ${({ theme }) => theme.radius.md};
+  box-shadow: ${({ theme }) => theme.shadow.md};
 `;
 
 export const Header = styled.div`
@@ -44,8 +42,8 @@ export const HeaderLetter = styled.div`
   align-items: center;
   justify-content: center;
   font-size: ${({ theme }) => theme.typography["2xl"]};
-  font-weight: 800;
-  color: ${({ theme }) => theme.colors.purple};
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.spacing.sm};
   text-align: center;
 `;
@@ -53,11 +51,7 @@ export const HeaderLetter = styled.div`
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: ${({ theme }) => theme.spacing.xs};
-
-  ${({ theme }) => theme.media.md} {
-    gap: ${({ theme }) => theme.spacing.sm};
-  }
+  gap: ${({ theme }) => theme.spacing.xxs};
 `;
 
 export const TileText = styled.span``;
@@ -67,18 +61,18 @@ export const Tile = styled.button<{
 }>`
   aspect-ratio: 1;
   padding: ${({ theme }) => theme.spacing.sm};
-  border: 2px solid ${({ theme }) => theme.colors.grayDark};
+  border: 1px solid ${({ theme }) => theme.colors.grayDark};
   border-radius: ${({ theme }) => theme.radius.md};
   background: ${({ theme, checked }) => {
     if (checked) {
       return theme.colors.purple;
     }
-    return theme.colors.white;
+    return theme.colors.pinkLight;
   }};
   color: ${({ theme, checked }) =>
     checked ? theme.colors.white : theme.colors.black};
   font-size: ${({ theme }) => theme.typography.xs};
-  font-weight: ${({ checked }) => (checked ? "400" : "300")};
+  font-weight: ${({ checked }) => (checked ? "600" : "500")};
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -99,6 +93,5 @@ export const Tile = styled.button<{
 
   ${({ theme }) => theme.media.md} {
     font-size: ${({ theme }) => theme.typography.sm};
-    padding: ${({ theme }) => theme.spacing.md};
   }
 `;
