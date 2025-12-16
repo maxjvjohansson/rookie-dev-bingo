@@ -56,6 +56,13 @@ export const Grid = styled.div`
   grid-template-columns: repeat(5, 1fr);
 `;
 
+export const MobileTileContent = styled.span`
+  font-size: ${({ theme }) => theme.typography.sm};
+  font-weight: 600;
+  opacity: 0.8;
+  text-transform: uppercase;
+`;
+
 export const TileText = styled.span``;
 
 export const Tile = styled.button<{
@@ -95,5 +102,15 @@ export const Tile = styled.button<{
 
   ${({ theme }) => theme.media.md} {
     font-size: ${({ theme }) => theme.typography.sm};
+  }
+
+  @media (max-width: 767px) {
+    &::after {
+      content: "Tap to view";
+      position: absolute;
+      bottom: 6px;
+      font-size: 10px;
+      opacity: 0.6;
+    }
   }
 `;

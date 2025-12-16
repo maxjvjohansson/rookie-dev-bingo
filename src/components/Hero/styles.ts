@@ -68,7 +68,11 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.lg};
+  gap: ${({ theme }) => theme.spacing.sm};
+
+  ${({ theme }) => theme.media.md} {
+    gap: ${({ theme }) => theme.spacing.lg};
+  }
 `;
 
 export const CTAButton = styled(Link)`
@@ -78,6 +82,7 @@ export const CTAButton = styled(Link)`
   color: white;
   border-radius: ${({ theme }) => theme.radius.md};
   font-weight: 600;
+  white-space: nowrap;
   cursor: pointer;
   transition: 0.2s ease;
 
@@ -92,6 +97,7 @@ export const SecondaryLink = styled(Link)`
   color: ${({ theme }) => theme.colors.purple};
   font-size: ${({ theme }) => theme.typography.sm};
   font-weight: 600;
+  white-space: nowrap;
   border: 2px solid ${({ theme }) => theme.colors.purple};
   border-radius: ${({ theme }) => theme.radius.md};
   transition: 0.2s ease;

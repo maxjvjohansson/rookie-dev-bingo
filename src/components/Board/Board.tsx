@@ -15,6 +15,7 @@ import {
   Tile,
   TileText,
   Button,
+  MobileTileContent,
 } from "./styles";
 
 interface Props {
@@ -71,7 +72,11 @@ export default function Board({ initialBoard, userId }: Props) {
               checked={t.checked}
               onClick={() => handleTileClick(t)}
             >
-              <TileText>{t.text}</TileText>
+              {!isMobile && <TileText>{t.text}</TileText>}
+
+              {isMobile && (
+                <MobileTileContent>{t.checked ? "✓" : "Tap"}</MobileTileContent>
+              )}
             </Tile>
           ))}
         </Grid>
