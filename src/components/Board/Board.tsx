@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { updateUserBoard } from "@/lib/supabase/boardClient";
 import { BoardTile } from "@/types/boardTypes";
+import { useScreenSize } from "@/hooks/useScreenSize";
+import { TileModal } from "../TileModal/TileModal";
+
 import {
   BoardWrapper,
   BoardContainer,
@@ -21,6 +24,9 @@ interface Props {
 
 export default function Board({ initialBoard, userId }: Props) {
   const [board, setBoard] = useState(initialBoard);
+  const [activeTile, setActiveTile] = useState<BoardTile | null>(null);
+
+  const isMobile: boolean = useScreenSize(768);
 
   const toggle = async (id: string) => {
     const updated = board.map((t) =>
@@ -40,6 +46,14 @@ export default function Board({ initialBoard, userId }: Props) {
     setBoard(newBoard);
   };
 
+  const handleTileClick = (tile: BoardTile) => {
+    if (isMobile) {
+      setActiveTile(tile);
+    } else {
+      toggle(tile.id);
+    }
+  };
+
   return (
     <BoardWrapper>
       <Button onClick={handleNewBoardClick}>Generate New Board</Button>
@@ -52,12 +66,26 @@ export default function Board({ initialBoard, userId }: Props) {
 
         <Grid>
           {board.map((t) => (
-            <Tile key={t.id} checked={t.checked} onClick={() => toggle(t.id)}>
+            <Tile
+              key={t.id}
+              checked={t.checked}
+              onClick={() => handleTileClick(t)}
+            >
               <TileText>{t.text}</TileText>
             </Tile>
           ))}
         </Grid>
       </BoardContainer>
+      {activeTile && (
+        <TileModal
+          tile={activeTile}
+          onToggle={async () => {
+            await toggle(activeTile.id);
+            setActiveTile(null);
+          }}
+          onClose={() => setActiveTile(null)}
+        />
+      )}
     </BoardWrapper>
   );
 }

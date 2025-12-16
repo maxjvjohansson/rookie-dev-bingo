@@ -2,7 +2,10 @@ import styled from "styled-components";
 
 export const BoardWrapper = styled.section`
   width: 100%;
-  padding: ${({ theme }) => theme.spacing.xl};
+  padding: ${({ theme }) => theme.spacing.md};
+  ${({ theme }) => theme.media.md} {
+    padding: ${({ theme }) => theme.spacing.xl};
+  }
 `;
 
 export const Button = styled.button`
@@ -51,7 +54,6 @@ export const HeaderLetter = styled.div`
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: ${({ theme }) => theme.spacing.xxs};
 `;
 
 export const TileText = styled.span``;
