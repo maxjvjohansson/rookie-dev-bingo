@@ -23,6 +23,7 @@ export const Sheet = styled.div`
 `;
 
 export const SheetTitle = styled.p`
+  text-align: center;
   font-size: ${({ theme }) => theme.typography.sm};
   font-weight: 400;
   margin-bottom: ${({ theme }) => theme.spacing.sm};

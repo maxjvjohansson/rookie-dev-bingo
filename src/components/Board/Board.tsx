@@ -75,7 +75,9 @@ export default function Board({ initialBoard, userId }: Props) {
               {!isMobile && <TileText>{t.text}</TileText>}
 
               {isMobile && (
-                <MobileTileContent>{t.checked ? "✓" : "Tap"}</MobileTileContent>
+                <MobileTileContent>
+                  {t.checked ? "✓" : "Tap to view"}
+                </MobileTileContent>
               )}
             </Tile>
           ))}

@@ -25,7 +25,7 @@ export const Button = styled.button`
 `;
 
 export const BoardContainer = styled.div`
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
   background: ${({ theme }) => theme.colors.pink};
   padding: ${({ theme }) => theme.spacing.lg};
@@ -36,7 +36,6 @@ export const BoardContainer = styled.div`
 export const Header = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: ${({ theme }) => theme.spacing.xs};
   margin-bottom: ${({ theme }) => theme.spacing.sm};
 `;
 
@@ -57,9 +56,8 @@ export const Grid = styled.div`
 `;
 
 export const MobileTileContent = styled.span`
-  font-size: ${({ theme }) => theme.typography.sm};
-  font-weight: 600;
-  opacity: 0.8;
+  font-size: ${({ theme }) => theme.typography.xs};
+  font-weight: 400;
   text-transform: uppercase;
 `;
 
@@ -102,15 +100,5 @@ export const Tile = styled.button<{
 
   ${({ theme }) => theme.media.md} {
     font-size: ${({ theme }) => theme.typography.sm};
-  }
-
-  @media (max-width: 767px) {
-    &::after {
-      content: "Tap to view";
-      position: absolute;
-      bottom: 6px;
-      font-size: 10px;
-      opacity: 0.6;
-    }
   }
 `;
