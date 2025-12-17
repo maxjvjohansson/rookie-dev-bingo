@@ -1,10 +1,30 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import Keyframes from "styled-components/dist/models/Keyframes";
+
+const slideUp: Keyframes = keyframes`
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+`;
+
+const fadeIn: Keyframes = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 export const Overlay = styled.div`
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
   z-index: 1000;
+  animation: ${fadeIn} 0.2s ease-out;
 `;
 
 export const Sheet = styled.div`
@@ -19,6 +39,21 @@ export const Sheet = styled.div`
   max-height: 75vh;
   overflow-y: auto;
   z-index: 1001;
+
+  animation: ${slideUp} 0.25s ease-out;
+
+  ${({ theme }) => theme.media.md} {
+    animation: none;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    max-width: 520px;
+    max-height: 80vh;
+    border-radius: ${({ theme }) => theme.radius.lg};
+    padding: ${({ theme }) => theme.spacing.xl};
+  }
 `;
 
 export const Title = styled.h2`
