@@ -25,7 +25,7 @@ export const Button = styled.button`
 `;
 
 export const BoardContainer = styled.div`
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   background: ${({ theme }) => theme.colors.pink};
   padding: ${({ theme }) => theme.spacing.lg};

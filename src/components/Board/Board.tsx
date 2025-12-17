@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { updateUserBoard } from "@/lib/supabase/boardClient";
+import { BoardHeader } from "../BoardHeader/BoardHeader";
 import { BoardTile } from "@/types/boardTypes";
-import { useScreenSize } from "@/hooks/useScreenSize";
 import { TileModal } from "../TileModal/TileModal";
+import { GameInfoModal } from "../GameInfoModal/GameInfoModal";
+import { useScreenSize } from "@/hooks/useScreenSize";
 
 import {
   BoardWrapper,
@@ -14,7 +16,6 @@ import {
   Grid,
   Tile,
   TileText,
-  Button,
   MobileTileContent,
 } from "./styles";
 
@@ -26,6 +27,7 @@ interface Props {
 export default function Board({ initialBoard, userId }: Props) {
   const [board, setBoard] = useState(initialBoard);
   const [activeTile, setActiveTile] = useState<BoardTile | null>(null);
+  const [showGameRules, setShowGameRules] = useState(false);
 
   const isMobile: boolean = useScreenSize(768);
 
@@ -57,7 +59,10 @@ export default function Board({ initialBoard, userId }: Props) {
 
   return (
     <BoardWrapper>
-      <Button onClick={handleNewBoardClick}>Generate New Board</Button>
+      <BoardHeader
+        onShowRules={() => setShowGameRules(true)}
+        onNewBoard={handleNewBoardClick}
+      />
       <BoardContainer>
         <Header>
           {bingoLetters.map((letter: string) => (
@@ -92,6 +97,9 @@ export default function Board({ initialBoard, userId }: Props) {
           }}
           onClose={() => setActiveTile(null)}
         />
+      )}
+      {showGameRules && (
+        <GameInfoModal onClose={() => setShowGameRules(false)} />
       )}
     </BoardWrapper>
   );
