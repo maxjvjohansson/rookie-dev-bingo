@@ -81,6 +81,7 @@ export const CTAButton = styled(Link)`
   border: 2px solid ${({ theme }) => theme.colors.purple};
   color: white;
   border-radius: ${({ theme }) => theme.radius.md};
+  font-size: ${({ theme }) => theme.typography.sm};
   font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
@@ -100,7 +101,7 @@ export const SecondaryLink = styled(Link)`
   white-space: nowrap;
   border: 2px solid ${({ theme }) => theme.colors.purple};
   border-radius: ${({ theme }) => theme.radius.md};
-  transition: 0.2s ease;
+  transition: background 0.3s ease;
 
   &:hover {
     background: ${({ theme }) => theme.colors.purple};

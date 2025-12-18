@@ -7,6 +7,7 @@ import { BoardTile } from "@/types/boardTypes";
 import { TileModal } from "../TileModal/TileModal";
 import { GameInfoModal } from "../GameInfoModal/GameInfoModal";
 import { useScreenSize } from "@/hooks/useScreenSize";
+import { checkForBingo } from "@/utils/checkForBingo";
 
 import {
   BoardWrapper,
@@ -18,6 +19,7 @@ import {
   TileText,
   MobileTileContent,
 } from "./styles";
+import { BingoModal } from "../BingoModal/BingoModal";
 
 interface Props {
   initialBoard: BoardTile[];
@@ -28,6 +30,7 @@ export default function Board({ initialBoard, userId }: Props) {
   const [board, setBoard] = useState(initialBoard);
   const [activeTile, setActiveTile] = useState<BoardTile | null>(null);
   const [showGameRules, setShowGameRules] = useState(false);
+  const [hasBingo, setHasBingo] = useState(false);
 
   const isMobile: boolean = useScreenSize(768);
 
@@ -39,6 +42,12 @@ export default function Board({ initialBoard, userId }: Props) {
     setBoard(updated);
 
     await updateUserBoard(userId, updated);
+
+    const hasBingo: boolean = checkForBingo(updated);
+
+    if (hasBingo) {
+      setHasBingo(true);
+    }
   };
 
   const bingoLetters: string[] = ["B", "I", "N", "G", "O"];
@@ -100,6 +109,22 @@ export default function Board({ initialBoard, userId }: Props) {
       )}
       {showGameRules && (
         <GameInfoModal onClose={() => setShowGameRules(false)} />
+      )}
+      {hasBingo && (
+        <BingoModal
+          onNewBoard={async () => {
+            setHasBingo(false);
+            const res = await fetch("/api/board/regenerate", {
+              method: "POST",
+            });
+            const newBoard = await res.json();
+            setBoard(newBoard);
+          }}
+          onViewLeaderboard={() => {
+            window.location.href = "/leaderboard";
+          }}
+          onClose={() => setHasBingo(false)}
+        />
       )}
     </BoardWrapper>
   );
