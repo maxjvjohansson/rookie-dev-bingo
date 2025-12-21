@@ -37,6 +37,7 @@ export async function regenerateBoardForUser(userId: string) {
     .update({
       board: newBoard,
       checked_count: 0,
+      has_bingo: false,
       updated_at: new Date().toISOString(),
     })
     .eq("user_id", userId);
