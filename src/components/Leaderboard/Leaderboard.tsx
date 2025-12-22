@@ -7,10 +7,10 @@ import {
   Subtitle,
   Table,
   HeaderRow,
-  HeaderCell,
   HeadingWrapper,
+  HeaderCell,
 } from "./styles";
-import { LeaderboardRow as Row } from "@/lib/supabase/leaderboard";
+import { LeaderboardRow as Row } from "@/types/leaderboardTypes";
 
 interface Props {
   leaderboard: Row[];
@@ -30,10 +30,9 @@ export default function Leaderboard({ leaderboard }: Props) {
         <HeaderRow>
           <span>#</span>
           <span>Name</span>
-          <HeaderCell>
-            <span>Bingos</span>
-            <span>Last bingo</span>
-          </HeaderCell>
+          <HeaderCell>Current state</HeaderCell>
+          <HeaderCell>Bingos</HeaderCell>
+          <HeaderCell>Last bingo</HeaderCell>
         </HeaderRow>
 
         {leaderboard.map((row, index) => (

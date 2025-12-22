@@ -47,7 +47,7 @@ export const HeaderRow = styled.div`
 
   ${({ theme }) => theme.media.md} {
     display: grid;
-    grid-template-columns: 40px 1fr 280px;
+    grid-template-columns: 40px 1fr 200px 100px 140px;
     padding: 0 ${({ theme }) => theme.spacing.sm};
     font-size: ${({ theme }) => theme.typography.sm};
     font-weight: 600;
@@ -55,9 +55,6 @@ export const HeaderRow = styled.div`
 `;
 
 export const HeaderCell = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
   text-align: center;
 `;
 
@@ -70,7 +67,7 @@ export const RowWrapper = styled.div`
   box-shadow: ${({ theme }) => theme.shadow.sm};
 
   ${({ theme }) => theme.media.md} {
-    grid-template-columns: 40px 1fr 120px 160px;
+    grid-template-columns: 40px 1fr 200px 100px 140px;
     align-items: center;
   }
 `;
