@@ -73,7 +73,7 @@ export const RowWrapper = styled.div`
 `;
 
 export const Rank = styled.div`
-  font-size: ${({ theme }) => theme.typography.md};
+  font-size: ${({ theme }) => theme.typography.sm};
   font-weight: 600;
 `;
 
