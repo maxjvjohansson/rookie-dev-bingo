@@ -22,7 +22,8 @@ export default function Leaderboard({ leaderboard }: Props) {
       <HeadingWrapper>
         <Title>Leaderboard</Title>
         <Subtitle>
-          Glory, honor, and questionable internship decisions.
+          Live standings and bingo status/board progress. One tile from glory,
+          or total humiliation.
         </Subtitle>
       </HeadingWrapper>
 
