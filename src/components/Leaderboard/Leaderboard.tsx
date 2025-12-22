@@ -8,6 +8,7 @@ import {
   Table,
   HeaderRow,
   HeaderCell,
+  HeadingWrapper,
 } from "./styles";
 import { LeaderboardRow as Row } from "@/lib/supabase/leaderboard";
 
@@ -18,8 +19,12 @@ interface Props {
 export default function Leaderboard({ leaderboard }: Props) {
   return (
     <Wrapper>
-      <Title>Leaderboard</Title>
-      <Subtitle>Glory, honor, and questionable internship decisions.</Subtitle>
+      <HeadingWrapper>
+        <Title>Leaderboard</Title>
+        <Subtitle>
+          Glory, honor, and questionable internship decisions.
+        </Subtitle>
+      </HeadingWrapper>
 
       <Table>
         <HeaderRow>

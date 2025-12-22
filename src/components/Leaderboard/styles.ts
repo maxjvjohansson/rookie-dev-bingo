@@ -3,24 +3,42 @@ import styled from "styled-components";
 export const Wrapper = styled.section`
   max-width: 900px;
   margin: 0 auto;
-  padding: ${({ theme }) => theme.spacing.lg};
+  width: 100%;
+  padding: ${({ theme }) => theme.spacing.md};
+  ${({ theme }) => theme.media.md} {
+    padding: ${({ theme }) => theme.spacing.xl};
+  }
+`;
+
+export const HeadingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xxs};
+  margin-bottom: ${({ theme }) => theme.spacing.xl};
+
+  ${({ theme }) => theme.media.md} {
+    align-items: flex-start;
+  }
 `;
 
 export const Title = styled.h1`
-  font-size: ${({ theme }) => theme.typography.xl};
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.typography["2xl"]};
+  font-weight: 800;
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 export const Subtitle = styled.p`
-  margin-top: ${({ theme }) => theme.spacing.xs};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
+  text-align: center;
+  font-size: ${({ theme }) => theme.typography.sm};
   color: ${({ theme }) => theme.colors.grayDark};
 `;
 
 export const Table = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm};
+  gap: ${({ theme }) => theme.spacing.xxs};
 `;
 
 /* Desktop header (hidden on mobile) */
