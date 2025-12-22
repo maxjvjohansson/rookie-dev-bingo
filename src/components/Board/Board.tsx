@@ -19,6 +19,7 @@ import {
   MobileTileContent,
 } from "./styles";
 import { BingoModal } from "../BingoModal/BingoModal";
+import { checkForBingo } from "@/utils/checkForBingo";
 
 interface Props {
   initialBoard: BoardTile[];
@@ -39,10 +40,9 @@ export default function Board({ initialBoard, userId }: Props) {
     );
 
     setBoard(updated);
+    await updateUserBoard(userId, updated);
 
-    const hasBingo: boolean = await updateUserBoard(userId, updated);
-
-    if (hasBingo) {
+    if (checkForBingo(updated)) {
       await fetch("/api/bingo/complete", { method: "POST" });
       setHasBingo(true);
     }
