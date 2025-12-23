@@ -597,69 +597,41 @@ function createPointerData(
   if (!pointerMap.has(options.domElement)) {
     pointerMap.set(options.domElement, defaultData);
     if (!globalPointerActive) {
-      document.body.addEventListener(
-        "pointermove",
-        onPointerMove as EventListener
-      );
-      document.body.addEventListener(
-        "pointerleave",
-        onPointerLeave as EventListener
-      );
-      document.body.addEventListener("click", onPointerClick as EventListener);
-
-      document.body.addEventListener(
-        "touchstart",
-        onTouchStart as EventListener,
-        { passive: false }
-      );
-      document.body.addEventListener(
-        "touchmove",
-        onTouchMove as EventListener,
-        { passive: false }
-      );
-      document.body.addEventListener("touchend", onTouchEnd as EventListener, {
+      // Add event listeners to the specific canvas element instead of document.body
+      const canvas = options.domElement;
+      canvas.addEventListener("pointermove", onPointerMove as EventListener);
+      canvas.addEventListener("pointerleave", onPointerLeave as EventListener);
+      canvas.addEventListener("click", onPointerClick as EventListener);
+      canvas.addEventListener("touchstart", onTouchStart as EventListener, {
         passive: false,
       });
-      document.body.addEventListener(
-        "touchcancel",
-        onTouchEnd as EventListener,
-        { passive: false }
-      );
+      canvas.addEventListener("touchmove", onTouchMove as EventListener, {
+        passive: false,
+      });
+      canvas.addEventListener("touchend", onTouchEnd as EventListener, {
+        passive: false,
+      });
+      canvas.addEventListener("touchcancel", onTouchEnd as EventListener, {
+        passive: false,
+      });
       globalPointerActive = true;
     }
   }
   defaultData.dispose = () => {
     pointerMap.delete(options.domElement);
     if (pointerMap.size === 0) {
-      document.body.removeEventListener(
-        "pointermove",
-        onPointerMove as EventListener
-      );
-      document.body.removeEventListener(
+      // Remove event listeners from the canvas element
+      const canvas = options.domElement;
+      canvas.removeEventListener("pointermove", onPointerMove as EventListener);
+      canvas.removeEventListener(
         "pointerleave",
         onPointerLeave as EventListener
       );
-      document.body.removeEventListener(
-        "click",
-        onPointerClick as EventListener
-      );
-
-      document.body.removeEventListener(
-        "touchstart",
-        onTouchStart as EventListener
-      );
-      document.body.removeEventListener(
-        "touchmove",
-        onTouchMove as EventListener
-      );
-      document.body.removeEventListener(
-        "touchend",
-        onTouchEnd as EventListener
-      );
-      document.body.removeEventListener(
-        "touchcancel",
-        onTouchEnd as EventListener
-      );
+      canvas.removeEventListener("click", onPointerClick as EventListener);
+      canvas.removeEventListener("touchstart", onTouchStart as EventListener);
+      canvas.removeEventListener("touchmove", onTouchMove as EventListener);
+      canvas.removeEventListener("touchend", onTouchEnd as EventListener);
+      canvas.removeEventListener("touchcancel", onTouchEnd as EventListener);
       globalPointerActive = false;
     }
   };
@@ -674,27 +646,23 @@ function onPointerMove(e: PointerEvent) {
 function processPointerInteraction() {
   for (const [elem, data] of pointerMap) {
     const rect = elem.getBoundingClientRect();
-    if (isInside(rect)) {
-      updatePointerData(data, rect);
-      if (!data.hover) {
-        data.hover = true;
-        data.onEnter(data);
-      }
-      data.onMove(data);
-    } else if (data.hover && !data.touching) {
-      data.hover = false;
-      data.onLeave(data);
+    // Since events are now on the canvas element, we know we're inside
+    updatePointerData(data, rect);
+    if (!data.hover) {
+      data.hover = true;
+      data.onEnter(data);
     }
+    data.onMove(data);
   }
 }
 
 function onTouchStart(e: TouchEvent) {
   if (e.touches.length > 0) {
-    e.preventDefault();
     pointerPosition.set(e.touches[0].clientX, e.touches[0].clientY);
     for (const [elem, data] of pointerMap) {
       const rect = elem.getBoundingClientRect();
       if (isInside(rect)) {
+        e.preventDefault(); // Only prevent default when actually interacting with canvas
         data.touching = true;
         updatePointerData(data, rect);
         if (!data.hover) {
@@ -709,12 +677,13 @@ function onTouchStart(e: TouchEvent) {
 
 function onTouchMove(e: TouchEvent) {
   if (e.touches.length > 0) {
-    e.preventDefault();
     pointerPosition.set(e.touches[0].clientX, e.touches[0].clientY);
+    let shouldPreventDefault = false;
     for (const [elem, data] of pointerMap) {
       const rect = elem.getBoundingClientRect();
       updatePointerData(data, rect);
       if (isInside(rect)) {
+        shouldPreventDefault = true; // Only prevent default when actually over canvas
         if (!data.hover) {
           data.hover = true;
           data.touching = true;
@@ -724,6 +693,9 @@ function onTouchMove(e: TouchEvent) {
       } else if (data.hover && data.touching) {
         data.onMove(data);
       }
+    }
+    if (shouldPreventDefault) {
+      e.preventDefault();
     }
   }
 }
@@ -744,8 +716,9 @@ function onPointerClick(e: PointerEvent) {
   pointerPosition.set(e.clientX, e.clientY);
   for (const [elem, data] of pointerMap) {
     const rect = elem.getBoundingClientRect();
+    // Since click event is on canvas, we know we're inside
     updatePointerData(data, rect);
-    if (isInside(rect)) data.onClick(data);
+    data.onClick(data);
   }
 }
 
@@ -944,7 +917,7 @@ function createBallpit(
   const intersectionPoint = new Vector3();
   let isPaused = false;
 
-  canvas.style.touchAction = "none";
+  canvas.style.touchAction = "manipulation"; // Allow touch interactions but optimize for performance
   canvas.style.userSelect = "none";
   (canvas.style as any).webkitUserSelect = "none";
 

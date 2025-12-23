@@ -21,6 +21,7 @@ export const HeroWrapper = styled.section`
 
 export const HeroContent = styled.div`
   z-index: 2;
+  pointer-events: auto;
 `;
 
 export const AnimationWrapper = styled.div`
@@ -29,7 +30,7 @@ export const AnimationWrapper = styled.div`
   min-height: 100vh;
   max-height: 100vh;
   width: 100%;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
 `;
 
