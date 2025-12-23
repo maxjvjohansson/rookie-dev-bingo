@@ -35,6 +35,11 @@ export async function getUserProfile(
       ? getDistanceToBingo(boardData)
       : null;
 
+  const public_name =
+    profile.public_name_preference === "username" && profile.username
+      ? profile.username
+      : profile.display_name;
+
   return {
     user_id: userId,
 
@@ -42,6 +47,8 @@ export async function getUserProfile(
     username: profile.username,
     avatar_url: profile.avatar_url,
     public_name_preference: profile.public_name_preference ?? "display_name",
+
+    public_name,
 
     email: user.email ?? "",
 

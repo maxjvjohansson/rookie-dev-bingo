@@ -4,6 +4,7 @@ import ClientWrapper from "./ClientWrapper";
 import StyledComponentsRegistry from "./registry";
 import Navbar from "@/components/Navbar/Navbar";
 import { getUser } from "@/lib/supabase/getUser";
+import { getUserProfile } from "@/lib/supabase/profile";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,6 +22,7 @@ export default async function RootLayout({
   children: ReactNode;
 }) {
   const user = await getUser();
+  const profile = user ? await getUserProfile(user.id) : null;
   return (
     <html lang="en">
       <head>
@@ -29,7 +31,7 @@ export default async function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <StyledComponentsRegistry>
           <ClientWrapper>
-            <Navbar user={user} />
+            <Navbar user={user} profile={profile} />
             <main>{children}</main>
           </ClientWrapper>
         </StyledComponentsRegistry>

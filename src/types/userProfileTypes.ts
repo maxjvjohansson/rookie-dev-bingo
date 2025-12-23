@@ -5,6 +5,7 @@ export interface UserProfile {
   username: string | null;
   avatar_url: string | null;
   public_name_preference: "display_name" | "username";
+  public_name: string;
 
   email: string;
 

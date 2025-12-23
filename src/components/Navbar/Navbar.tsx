@@ -20,7 +20,13 @@ import { Avatar } from "@/components/Avatar/Avatar";
 import logo from "@/assets/images/logo.svg";
 import Link from "next/link";
 
-export default function Navbar({ user }: { user: any }) {
+export default function Navbar({
+  user,
+  profile,
+}: {
+  user: any;
+  profile: { public_name: string; avatar_url?: string | null } | null;
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -66,11 +72,13 @@ export default function Navbar({ user }: { user: any }) {
             <NavLink href="/login">Log In</NavLink>
           ) : (
             <div style={{ position: "relative" }} ref={dropdownRef}>
-              <Avatar
-                name={user.user_metadata?.fullName ?? user.email}
-                imageUrl={user.user_metadata?.avatar_url}
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              />
+              {user && (
+                <Avatar
+                  name={profile?.public_name ?? user.email}
+                  imageUrl={profile?.avatar_url}
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                />
+              )}
 
               {dropdownOpen && (
                 <Dropdown>
