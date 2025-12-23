@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { UserProfile } from "@/types/userProfileTypes";
 import {
   FormSection,
@@ -11,8 +11,11 @@ import {
   HelperText,
   ToggleOption,
   RadioDot,
+  AvatarUpload,
+  AvatarPreview,
 } from "./styles";
 import { useRouter } from "next/navigation";
+import { Avatar } from "@/components/Avatar/Avatar";
 
 interface Props {
   profile: UserProfile;
@@ -24,6 +27,9 @@ export default function ProfileSettings({ profile }: Props) {
   const [publicPref, setPublicPref] = useState(profile.public_name_preference);
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [avatarLoading, setAvatarLoading] = useState(false);
+  const [avatarError, setAvatarError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
 
@@ -51,8 +57,73 @@ export default function ProfileSettings({ profile }: Props) {
     setLoading(false);
   };
 
+  const uploadAvatar = async (file: File) => {
+    setAvatarLoading(true);
+    setAvatarError(null);
+
+    const formData = new FormData();
+    formData.append("avatar", file);
+
+    const res = await fetch("/api/profile/avatar", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (res.ok) {
+      router.refresh();
+    } else {
+      const error = await res.json();
+      setAvatarError(error.error || "Failed to upload avatar");
+    }
+
+    setAvatarLoading(false);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      uploadAvatar(file);
+    }
+  };
+
   return (
     <FormSection>
+      <h3>Avatar</h3>
+
+      <FieldGroup>
+        <AvatarUpload>
+          <AvatarPreview>
+            <Avatar
+              name={profile.public_name}
+              imageUrl={profile.avatar_url}
+              size={80}
+            />
+          </AvatarPreview>
+          <div>
+            <Button
+              disabled={avatarLoading}
+              onClick={() => fileInputRef.current?.click()}
+              style={{ marginBottom: "8px" }}
+            >
+              {avatarLoading ? "Uploading…" : "Change avatar"}
+            </Button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
+            <HelperText>
+              Upload a profile picture. Max 1MB, JPG/PNG/WebP.
+            </HelperText>
+            {avatarError && (
+              <HelperText style={{ color: "red" }}>{avatarError}</HelperText>
+            )}
+          </div>
+        </AvatarUpload>
+      </FieldGroup>
+
       <h3>Public profile</h3>
 
       <FieldGroup>

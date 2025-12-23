@@ -152,3 +152,13 @@ export const CTAButton = styled(Button)`
     padding-inline: ${({ theme }) => theme.spacing.sm};
   }
 `;
+
+export const AvatarUpload = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.md};
+`;
+
+export const AvatarPreview = styled.div`
+  flex-shrink: 0;
+`;

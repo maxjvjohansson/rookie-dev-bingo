@@ -4,6 +4,7 @@ import Link from "next/link";
 import { UserProfile } from "@/types/userProfileTypes";
 import ProfileStats from "./ProfileStats";
 import ProfileSettings from "./ProfileSettings";
+import { Avatar } from "@/components/Avatar/Avatar";
 import {
   Wrapper,
   Title,
@@ -22,7 +23,21 @@ export default function Profile({ profile }: Props) {
     <Wrapper>
       <HeaderWrapper>
         <HeadingWrapper>
-          <Title>Profile</Title>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "16px",
+              marginBottom: "8px",
+            }}
+          >
+            <Avatar
+              name={profile.public_name}
+              imageUrl={profile.avatar_url}
+              size={60}
+            />
+            <Title>Profile</Title>
+          </div>
           <Subtitle>
             Control how you appear on the leaderboard, and keep your account
             secure.
