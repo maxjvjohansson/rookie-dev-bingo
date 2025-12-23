@@ -18,7 +18,7 @@ export default function LeaderboardRow({ rank, row }: Props) {
       <Rank>{medal}</Rank>
 
       <Main>
-        <Name>{row.display_name}</Name>
+        <Name>{row.public_name}</Name>
 
         <Meta>
           <span>{row.bingo_count} bingos</span>
