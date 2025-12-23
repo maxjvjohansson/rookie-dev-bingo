@@ -20,6 +20,7 @@ import {
 } from "./styles";
 import { useRouter } from "next/navigation";
 import { Avatar } from "@/components/Avatar/Avatar";
+import { Camera, Trash2, Save, Check } from "lucide-react";
 
 interface Props {
   profile: UserProfile;
@@ -113,11 +114,13 @@ export default function ProfileSettings({ profile }: Props) {
               disabled={avatarLoading}
               onClick={() => fileInputRef.current?.click()}
             >
+              <Camera size={16} />
               {avatarLoading ? "Uploading…" : "Change avatar"}
             </AvatarButton>
 
             {profile.avatar_url && (
               <SecondaryButton disabled={avatarLoading} onClick={removeAvatar}>
+                <Trash2 size={16} />
                 Remove avatar
               </SecondaryButton>
             )}
@@ -182,7 +185,22 @@ export default function ProfileSettings({ profile }: Props) {
       </ToggleGroup>
 
       <Button disabled={loading} onClick={saveProfile}>
-        {loading ? "Saving…" : saved ? "Saved ✓" : "Save changes"}
+        {loading ? (
+          <>
+            <Save size={16} />
+            Saving…
+          </>
+        ) : saved ? (
+          <>
+            <Check size={16} />
+            Saved ✓
+          </>
+        ) : (
+          <>
+            <Save size={16} />
+            Save changes
+          </>
+        )}
       </Button>
     </FormSection>
   );

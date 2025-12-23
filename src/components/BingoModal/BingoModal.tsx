@@ -11,6 +11,7 @@ import {
   PrimaryButton,
   SecondaryButton,
 } from "./styles";
+import { RotateCcw, Trophy } from "lucide-react";
 
 interface Props {
   onNewBoard: () => void;
@@ -37,8 +38,12 @@ export function BingoModal({ onNewBoard, onViewLeaderboard, onClose }: Props) {
         <Text>You got BINGO!</Text>
 
         <Actions>
-          <PrimaryButton onClick={onNewBoard}>New board</PrimaryButton>
+          <PrimaryButton onClick={onNewBoard}>
+            <RotateCcw size={16} />
+            New board
+          </PrimaryButton>
           <SecondaryButton onClick={onViewLeaderboard}>
+            <Trophy size={16} />
             View leaderboard
           </SecondaryButton>
         </Actions>

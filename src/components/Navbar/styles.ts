@@ -71,6 +71,9 @@ export const NavLink = styled(Link)`
   font-weight: 400;
   text-transform: uppercase;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xs};
 
   &::after {
     content: "";
@@ -110,6 +113,9 @@ export const DropdownItem = styled(Link)`
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm};
 
   &:hover {
     background: ${({ theme }) => theme.colors.gray};
@@ -174,6 +180,9 @@ export const MobileLink = styled(Link)`
   font-weight: 400;
   text-decoration: none;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm};
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray};

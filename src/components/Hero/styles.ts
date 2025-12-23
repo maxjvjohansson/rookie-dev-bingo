@@ -86,6 +86,10 @@ export const CTAButton = styled(Link)`
   white-space: nowrap;
   cursor: pointer;
   transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.xs};
 
   &:hover {
     background: ${({ theme }) => theme.colors.purpleLight};
@@ -102,6 +106,10 @@ export const SecondaryLink = styled(Link)`
   border: 2px solid ${({ theme }) => theme.colors.purple};
   border-radius: ${({ theme }) => theme.radius.md};
   transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.xs};
 
   &:hover {
     background: ${({ theme }) => theme.colors.purple};

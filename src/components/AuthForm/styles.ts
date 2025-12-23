@@ -75,6 +75,10 @@ export const Button = styled.button`
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.xs};
 
   &:hover {
     background: ${({ theme }) => theme.colors.purpleLight};

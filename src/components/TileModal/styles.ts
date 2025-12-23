@@ -37,7 +37,7 @@ export const SheetActions = styled.div`
 `;
 
 export const Button = styled.button`
-  width: 100%;
+  flex: 1;
   margin-top: ${({ theme }) => theme.spacing.sm};
   padding: ${({ theme }) => theme.spacing.sm};
   background: ${({ theme }) => theme.colors.purple};
@@ -47,6 +47,10 @@ export const Button = styled.button`
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.xs};
 
   &:hover {
     background: ${({ theme }) => theme.colors.purpleLight};

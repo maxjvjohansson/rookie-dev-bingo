@@ -16,6 +16,7 @@ import {
 import BallpitAnimation from "../BallpitAnimation/BallpitAnimation";
 import { useScreenSize } from "@/hooks/useScreenSize";
 import { theme } from "@/styles/theme";
+import { Grid3X3, Trophy, ArrowRight } from "lucide-react";
 
 export default function Hero() {
   const desktopBreakpoint: number = parseInt(theme.breakpoints.md);
@@ -37,8 +38,14 @@ export default function Hero() {
         </Subtext>
 
         <ButtonWrapper>
-          <CTAButton href="/board">Go to My Board</CTAButton>
-          <SecondaryLink href="/leaderboard">View Leaderboard →</SecondaryLink>
+          <CTAButton href="/board">
+            <Grid3X3 size={16} />
+            Go to My Board
+          </CTAButton>
+          <SecondaryLink href="/leaderboard">
+            <Trophy size={16} />
+            View Leaderboard
+          </SecondaryLink>
         </ButtonWrapper>
       </HeroContent>
       <AnimationWrapper>

@@ -14,6 +14,7 @@ import {
   CTAButton,
   ProfileTitleRow,
 } from "./styles";
+import { Grid3X3 } from "lucide-react";
 
 interface Props {
   profile: UserProfile;
@@ -40,6 +41,7 @@ export default function Profile({ profile }: Props) {
         </HeadingWrapper>
 
         <CTAButton as={Link} href="/board">
+          <Grid3X3 size={16} />
           Go to your board
         </CTAButton>
       </HeaderWrapper>

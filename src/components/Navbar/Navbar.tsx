@@ -19,6 +19,7 @@ import {
 import { Avatar } from "@/components/Avatar/Avatar";
 import logo from "@/assets/images/logo.svg";
 import Link from "next/link";
+import { Home, Trophy, Grid3X3, User, LogOut, LogIn } from "lucide-react";
 
 export default function Navbar({
   user,
@@ -62,14 +63,28 @@ export default function Navbar({
         </LeftZone>
 
         <CenterZone>
-          <NavLink href="/">Home</NavLink>
-          <NavLink href="/leaderboard">Leaderboard</NavLink>
-          {user && <NavLink href="/board">My Board</NavLink>}
+          <NavLink href="/">
+            <Home size={16} />
+            Home
+          </NavLink>
+          <NavLink href="/leaderboard">
+            <Trophy size={16} />
+            Leaderboard
+          </NavLink>
+          {user && (
+            <NavLink href="/board">
+              <Grid3X3 size={16} />
+              My Board
+            </NavLink>
+          )}
         </CenterZone>
 
         <RightZone>
           {!user ? (
-            <NavLink href="/login">Log In</NavLink>
+            <NavLink href="/login">
+              <LogIn size={16} />
+              Log In
+            </NavLink>
           ) : (
             <div style={{ position: "relative" }} ref={dropdownRef}>
               {user && (
@@ -82,9 +97,16 @@ export default function Navbar({
 
               {dropdownOpen && (
                 <Dropdown>
-                  <DropdownItem href="/profile">Profile</DropdownItem>
-                  <DropdownItem href="/board">My Board</DropdownItem>
+                  <DropdownItem href="/profile">
+                    <User size={16} />
+                    Profile
+                  </DropdownItem>
+                  <DropdownItem href="/board">
+                    <Grid3X3 size={16} />
+                    My Board
+                  </DropdownItem>
                   <DropdownItem href="/" onClick={handleLogout}>
+                    <LogOut size={16} />
                     Logout
                   </DropdownItem>
                 </Dropdown>
@@ -106,24 +128,29 @@ export default function Navbar({
       {/* Mobile Menu */}
       <MobileMenu open={mobileOpen}>
         <MobileLink href="/" onClick={() => setMobileOpen(false)}>
+          <Home size={16} />
           Home
         </MobileLink>
         <MobileLink href="/leaderboard" onClick={() => setMobileOpen(false)}>
+          <Trophy size={16} />
           Leaderboard
         </MobileLink>
 
         {user && (
           <MobileLink href="/board" onClick={() => setMobileOpen(false)}>
+            <Grid3X3 size={16} />
             My Board
           </MobileLink>
         )}
 
         {user ? (
           <MobileLink href="/" onClick={handleLogout}>
+            <LogOut size={16} />
             Logout
           </MobileLink>
         ) : (
           <MobileLink href="/login" onClick={() => setMobileOpen(false)}>
+            <LogIn size={16} />
             Log In
           </MobileLink>
         )}

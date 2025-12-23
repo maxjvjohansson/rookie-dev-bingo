@@ -145,6 +145,10 @@ export const Button = styled.button`
   text-align: center;
   cursor: pointer;
   transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.xs};
 
   &:hover {
     background: ${({ theme }) => theme.colors.purpleLight};
@@ -154,6 +158,10 @@ export const Button = styled.button`
 export const CTAButton = styled(Button)`
   width: 100%;
   margin-top: ${({ theme }) => theme.spacing.md};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.xs};
 
   ${({ theme }) => theme.media.md} {
     width: auto;

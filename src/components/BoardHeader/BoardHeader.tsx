@@ -8,6 +8,7 @@ import {
   HeadingWrapper,
 } from "./styles";
 import { Button } from "../Board/styles";
+import { HelpCircle, RefreshCw } from "lucide-react";
 
 interface Props {
   onShowRules: () => void;
@@ -25,8 +26,14 @@ export function BoardHeader({ onShowRules, onNewBoard }: Props) {
       </HeadingWrapper>
 
       <Actions>
-        <Button onClick={onShowRules}>How to play</Button>
-        <Button onClick={onNewBoard}>New board</Button>
+        <Button onClick={onShowRules}>
+          <HelpCircle size={16} />
+          How to play
+        </Button>
+        <Button onClick={onNewBoard}>
+          <RefreshCw size={16} />
+          New board
+        </Button>
       </Actions>
     </HeaderWrapper>
   );

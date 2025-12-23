@@ -1,5 +1,6 @@
 import { Overlay, Sheet, Title, Footer, Button } from "./styles";
 import { InfoSection } from "./InfoSection";
+import { Check } from "lucide-react";
 
 interface Props {
   onClose: () => void;
@@ -40,7 +41,10 @@ export function GameInfoModal({ onClose }: Props) {
         />
 
         <Footer>
-          <Button onClick={onClose}>Got it</Button>
+          <Button onClick={onClose}>
+            <Check size={16} />
+            Got it
+          </Button>
         </Footer>
       </Sheet>
     </>

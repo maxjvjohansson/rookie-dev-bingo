@@ -17,6 +17,7 @@ import {
   SwitchText,
   FormError,
 } from "./styles";
+import { LogIn, UserPlus } from "lucide-react";
 
 interface Props {
   mode: "login" | "signup";
@@ -111,7 +112,19 @@ export default function AuthForm({ mode }: Props) {
           )}
 
           <Button type="submit" disabled={loading}>
-            {loading ? "Loading..." : mode === "login" ? "Log In" : "Sign Up"}
+            {loading ? (
+              "Loading..."
+            ) : mode === "login" ? (
+              <>
+                <LogIn size={16} />
+                Log In
+              </>
+            ) : (
+              <>
+                <UserPlus size={16} />
+                Sign Up
+              </>
+            )}
           </Button>
         </Form>
 
