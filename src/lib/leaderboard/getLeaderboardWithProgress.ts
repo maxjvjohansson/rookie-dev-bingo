@@ -15,12 +15,11 @@ export async function getLeaderboardWithProgress(): Promise<LeaderboardRow[]> {
 
   const boardMap = new Map(boards.map((b) => [b.user_id, b]));
 
-  const enriched = leaderboard.map((row) => {
+  const enriched: LeaderboardRow[] = leaderboard.map((row) => {
     const boardData = boardMap.get(row.user_id);
-
     const board = boardData?.board as BoardTile[] | undefined;
 
-    const distance: number | null =
+    const distance =
       board && boardData?.checked_count > 0 ? getDistanceToBingo(board) : null;
 
     return {
@@ -31,21 +30,17 @@ export async function getLeaderboardWithProgress(): Promise<LeaderboardRow[]> {
     };
   });
 
-  // Sorting
-  enriched.sort((a, b): number => {
-    // Bingo first
+  enriched.sort((a, b) => {
     if (a.bingo_count !== b.bingo_count) {
       return b.bingo_count - a.bingo_count;
     }
 
-    // Closest to bingo (fewest tiles left)
     if (a.distance_to_bingo !== b.distance_to_bingo) {
       if (a.distance_to_bingo === null) return 1;
       if (b.distance_to_bingo === null) return -1;
       return a.distance_to_bingo - b.distance_to_bingo;
     }
 
-    // Fallback: Most checked board
     return b.checked_count - a.checked_count;
   });
 

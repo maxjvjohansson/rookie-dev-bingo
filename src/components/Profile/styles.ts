@@ -161,33 +161,62 @@ export const CTAButton = styled(Button)`
   }
 `;
 
-export const SecondaryButton = styled(Button)`
-  background: ${({ theme }) => theme.colors.gray};
-  color: ${({ theme }) => theme.colors.black};
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.gray};
-  }
-`;
-
 export const AvatarUpload = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: ${({ theme }) => theme.spacing.md};
+  margin-top: ${({ theme }) => theme.spacing.md};
+  margin-bottom: ${({ theme }) => theme.spacing.md};
+
+  ${({ theme }) => theme.media.sm} {
+    flex-direction: row;
+    align-items: flex-start;
+  }
 `;
 
 export const AvatarPreview = styled.div`
   flex-shrink: 0;
+  align-self: center;
+
+  ${({ theme }) => theme.media.sm} {
+    align-self: flex-start;
+  }
 `;
 
 export const AvatarActions = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.xs};
+  width: 100%;
+
+  ${({ theme }) => theme.media.sm} {
+    width: auto;
+  }
+
+  > div {
+    display: flex;
+    gap: ${({ theme }) => theme.spacing.xs};
+    flex-wrap: wrap;
+  }
 `;
 
 export const AvatarButton = styled(Button)`
-  width: fit-content;
+  padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
+  margin-top: 0;
+  width: auto;
+  white-space: nowrap;
+`;
+
+export const SecondaryButton = styled(Button)`
+  background: ${({ theme }) => theme.colors.gray};
+  color: ${({ theme }) => theme.colors.black};
+  padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
+  margin-top: 0;
+  white-space: nowrap;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.gray};
+  }
 `;
 
 export const ErrorText = styled(HelperText)`

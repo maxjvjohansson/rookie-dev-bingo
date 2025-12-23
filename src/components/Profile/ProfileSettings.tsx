@@ -108,30 +108,30 @@ export default function ProfileSettings({ profile }: Props) {
         </AvatarPreview>
 
         <AvatarActions>
-          <AvatarButton
-            disabled={avatarLoading}
-            onClick={() => fileInputRef.current?.click()}
-          >
-            {avatarLoading ? "Uploading…" : "Change avatar"}
-          </AvatarButton>
+          <div>
+            <AvatarButton
+              disabled={avatarLoading}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              {avatarLoading ? "Uploading…" : "Change avatar"}
+            </AvatarButton>
 
-          {profile.avatar_url && (
-            <SecondaryButton disabled={avatarLoading} onClick={removeAvatar}>
-              Remove avatar
-            </SecondaryButton>
-          )}
+            {profile.avatar_url && (
+              <SecondaryButton disabled={avatarLoading} onClick={removeAvatar}>
+                Remove avatar
+              </SecondaryButton>
+            )}
+          </div>
 
           <input
             ref={fileInputRef}
             type="file"
             accept="image/*"
-            onChange={handleFileChange}
             hidden
+            onChange={(e) => e.target.files && uploadAvatar(e.target.files[0])}
           />
 
-          <HelperText>
-            Upload a profile picture. Max 1MB, JPG/PNG/WebP.
-          </HelperText>
+          <HelperText>Max 1MB · JPG / PNG / WebP</HelperText>
 
           {avatarError && <ErrorText>{avatarError}</ErrorText>}
         </AvatarActions>
@@ -153,6 +153,7 @@ export default function ProfileSettings({ profile }: Props) {
         <Input
           id="username"
           value={username}
+          autoComplete="false"
           onChange={(e) => setUsername(e.target.value)}
         />
         <HelperText>Used for links and leaderboard</HelperText>
