@@ -30,6 +30,7 @@ export const AnimationWrapper = styled.div`
   max-height: 100vh;
   width: 100%;
   z-index: 1;
+  pointer-events: none;
 `;
 
 export const Logo = styled(Image)`

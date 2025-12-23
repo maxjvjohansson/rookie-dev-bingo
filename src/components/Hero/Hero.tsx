@@ -55,7 +55,7 @@ export default function Hero() {
             gravity={0.01}
             friction={0.9975}
             wallBounce={0.95}
-            followCursor={true}
+            followCursor={false}
           />
         )}
         {isMobile && (
@@ -64,7 +64,7 @@ export default function Hero() {
             gravity={0.01}
             friction={0.9975}
             wallBounce={0.95}
-            followCursor={true}
+            followCursor={false}
           />
         )}
       </AnimationWrapper>
