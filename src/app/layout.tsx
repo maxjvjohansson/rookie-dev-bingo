@@ -12,8 +12,26 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "WU24 | LIA-Bingo",
-  description: "Bingo game for WU24 internship.",
+  title: "WU24 | LIA Bingo",
+  description: "Track your bingo progress and compete on the leaderboard.",
+  openGraph: {
+    title: "WU24 | LIA Bingo",
+    description: "Track your bingo progress and compete on the leaderboard.",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "WU24 LIA Bingo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "WU24 | LIA Bingo",
+    description: "Track your bingo progress and compete on the leaderboard.",
+    images: ["/og.png"],
+  },
 };
 
 export default async function RootLayout({
