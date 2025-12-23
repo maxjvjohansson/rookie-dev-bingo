@@ -89,6 +89,9 @@ export const Main = styled.div`
 export const Name = styled.span`
   font-weight: 600;
   font-size: ${({ theme }) => theme.typography.sm};
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xs};
 `;
 
 export const Meta = styled.div`

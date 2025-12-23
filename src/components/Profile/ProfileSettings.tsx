@@ -13,6 +13,10 @@ import {
   RadioDot,
   AvatarUpload,
   AvatarPreview,
+  AvatarActions,
+  AvatarButton,
+  ErrorText,
+  SecondaryButton,
 } from "./styles";
 import { useRouter } from "next/navigation";
 import { Avatar } from "@/components/Avatar/Avatar";
@@ -50,7 +54,6 @@ export default function ProfileSettings({ profile }: Props) {
     if (res.ok) {
       setSaved(true);
       router.refresh();
-
       setTimeout(() => setSaved(false), 2000);
     }
 
@@ -79,50 +82,60 @@ export default function ProfileSettings({ profile }: Props) {
     setAvatarLoading(false);
   };
 
+  const removeAvatar = async () => {
+    setAvatarLoading(true);
+    await fetch("/api/profile/avatar", { method: "DELETE" });
+    router.refresh();
+    setAvatarLoading(false);
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      uploadAvatar(file);
-    }
+    if (file) uploadAvatar(file);
   };
 
   return (
     <FormSection>
       <h3>Avatar</h3>
 
-      <FieldGroup>
-        <AvatarUpload>
-          <AvatarPreview>
-            <Avatar
-              name={profile.public_name}
-              imageUrl={profile.avatar_url}
-              size={80}
-            />
-          </AvatarPreview>
-          <div>
-            <Button
-              disabled={avatarLoading}
-              onClick={() => fileInputRef.current?.click()}
-              style={{ marginBottom: "8px" }}
-            >
-              {avatarLoading ? "Uploading…" : "Change avatar"}
-            </Button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
-            <HelperText>
-              Upload a profile picture. Max 1MB, JPG/PNG/WebP.
-            </HelperText>
-            {avatarError && (
-              <HelperText style={{ color: "red" }}>{avatarError}</HelperText>
-            )}
-          </div>
-        </AvatarUpload>
-      </FieldGroup>
+      <AvatarUpload>
+        <AvatarPreview>
+          <Avatar
+            name={profile.public_name}
+            imageUrl={profile.avatar_url}
+            size={80}
+          />
+        </AvatarPreview>
+
+        <AvatarActions>
+          <AvatarButton
+            disabled={avatarLoading}
+            onClick={() => fileInputRef.current?.click()}
+          >
+            {avatarLoading ? "Uploading…" : "Change avatar"}
+          </AvatarButton>
+
+          {profile.avatar_url && (
+            <SecondaryButton disabled={avatarLoading} onClick={removeAvatar}>
+              Remove avatar
+            </SecondaryButton>
+          )}
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            hidden
+          />
+
+          <HelperText>
+            Upload a profile picture. Max 1MB, JPG/PNG/WebP.
+          </HelperText>
+
+          {avatarError && <ErrorText>{avatarError}</ErrorText>}
+        </AvatarActions>
+      </AvatarUpload>
 
       <h3>Public profile</h3>
 
@@ -130,7 +143,6 @@ export default function ProfileSettings({ profile }: Props) {
         <label htmlFor="display_name">Display name</label>
         <Input
           id="display_name"
-          name="display_name"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
         />
@@ -140,9 +152,7 @@ export default function ProfileSettings({ profile }: Props) {
         <label htmlFor="username">Username</label>
         <Input
           id="username"
-          name="username"
           value={username}
-          autoComplete="false"
           onChange={(e) => setUsername(e.target.value)}
         />
         <HelperText>Used for links and leaderboard</HelperText>

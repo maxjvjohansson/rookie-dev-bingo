@@ -81,3 +81,33 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ avatarUrl });
 }
+
+export async function DELETE() {
+  const user = await getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const supabase = await createClient();
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("avatar_url")
+    .eq("id", user.id)
+    .single();
+
+  if (profile?.avatar_url) {
+    const parts = profile.avatar_url.split("/");
+    const fileName = parts[parts.length - 1];
+    const path = `public/${user.id}/${fileName}`;
+
+    await supabase.storage.from("avatars").remove([path]);
+  }
+
+  await supabase
+    .from("profiles")
+    .update({ avatar_url: null })
+    .eq("id", user.id);
+
+  return NextResponse.json({ success: true });
+}

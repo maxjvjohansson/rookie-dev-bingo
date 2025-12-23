@@ -38,6 +38,13 @@ export const HeadingWrapper = styled.div`
   }
 `;
 
+export const ProfileTitleRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.md};
+  margin-bottom: ${({ theme }) => theme.spacing.xs};
+`;
+
 export const Title = styled.h1`
   font-size: ${({ theme }) => theme.typography["2xl"]};
   font-weight: 800;
@@ -75,6 +82,7 @@ export const FieldGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-top: ${({ theme }) => theme.spacing.sm};
   margin-bottom: ${({ theme }) => theme.spacing.sm};
 `;
 
@@ -153,6 +161,15 @@ export const CTAButton = styled(Button)`
   }
 `;
 
+export const SecondaryButton = styled(Button)`
+  background: ${({ theme }) => theme.colors.gray};
+  color: ${({ theme }) => theme.colors.black};
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.gray};
+  }
+`;
+
 export const AvatarUpload = styled.div`
   display: flex;
   align-items: center;
@@ -161,4 +178,18 @@ export const AvatarUpload = styled.div`
 
 export const AvatarPreview = styled.div`
   flex-shrink: 0;
+`;
+
+export const AvatarActions = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs};
+`;
+
+export const AvatarButton = styled(Button)`
+  width: fit-content;
+`;
+
+export const ErrorText = styled(HelperText)`
+  color: ${({ theme }) => theme.colors.red};
 `;

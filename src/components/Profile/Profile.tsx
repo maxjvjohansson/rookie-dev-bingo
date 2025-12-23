@@ -7,11 +7,12 @@ import ProfileSettings from "./ProfileSettings";
 import { Avatar } from "@/components/Avatar/Avatar";
 import {
   Wrapper,
-  Title,
-  CTAButton,
-  HeadingWrapper,
-  Subtitle,
   HeaderWrapper,
+  HeadingWrapper,
+  Title,
+  Subtitle,
+  CTAButton,
+  ProfileTitleRow,
 } from "./styles";
 
 interface Props {
@@ -23,21 +24,15 @@ export default function Profile({ profile }: Props) {
     <Wrapper>
       <HeaderWrapper>
         <HeadingWrapper>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "16px",
-              marginBottom: "8px",
-            }}
-          >
+          <ProfileTitleRow>
             <Avatar
               name={profile.public_name}
               imageUrl={profile.avatar_url}
               size={60}
             />
             <Title>Profile</Title>
-          </div>
+          </ProfileTitleRow>
+
           <Subtitle>
             Control how you appear on the leaderboard, and keep your account
             secure.
