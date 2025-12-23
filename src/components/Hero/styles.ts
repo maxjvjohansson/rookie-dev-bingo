@@ -37,7 +37,6 @@ export const AnimationWrapper = styled.div`
 export const Logo = styled(Image)`
   width: 120px;
   height: auto;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
 
   ${({ theme }) => theme.media.md} {
     width: 150px;
@@ -68,16 +67,23 @@ export const Subtext = styled.p`
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 320px;
   gap: ${({ theme }) => theme.spacing.sm};
+  margin: 0 auto;
 
   ${({ theme }) => theme.media.md} {
+    flex-direction: row;
+    justify-content: center;
+    max-width: none;
+    width: auto;
     gap: ${({ theme }) => theme.spacing.lg};
   }
 `;
 
 export const CTAButton = styled(Link)`
+  width: 100%;
   padding: ${({ theme }) => theme.spacing.sm};
   background: ${({ theme }) => theme.colors.purple};
   border: 2px solid ${({ theme }) => theme.colors.purple};
@@ -85,13 +91,18 @@ export const CTAButton = styled(Link)`
   border-radius: ${({ theme }) => theme.radius.md};
   font-size: ${({ theme }) => theme.typography.sm};
   font-weight: 600;
-  white-space: nowrap;
   cursor: pointer;
   transition: 0.2s ease;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: ${({ theme }) => theme.spacing.xs};
+
+  ${({ theme }) => theme.media.md} {
+    width: auto;
+    padding: 1rem 2rem;
+  }
 
   &:hover {
     background: ${({ theme }) => theme.colors.purpleLight};
@@ -100,18 +111,24 @@ export const CTAButton = styled(Link)`
 `;
 
 export const SecondaryLink = styled(Link)`
+  width: 100%;
   padding: ${({ theme }) => theme.spacing.sm};
   color: ${({ theme }) => theme.colors.purple};
   font-size: ${({ theme }) => theme.typography.sm};
   font-weight: 600;
-  white-space: nowrap;
   border: 2px solid ${({ theme }) => theme.colors.purple};
   border-radius: ${({ theme }) => theme.radius.md};
-  transition: background 0.3s ease;
+  transition: 0.2s ease;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: ${({ theme }) => theme.spacing.xs};
+
+  ${({ theme }) => theme.media.md} {
+    width: auto;
+    padding: 1rem 2rem;
+  }
 
   &:hover {
     background: ${({ theme }) => theme.colors.purple};
