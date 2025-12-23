@@ -9,7 +9,10 @@ import {
   FieldGroup,
   ToggleGroup,
   HelperText,
+  ToggleOption,
+  RadioDot,
 } from "./styles";
+import { useRouter } from "next/navigation";
 
 interface Props {
   profile: UserProfile;
@@ -21,10 +24,12 @@ export default function ProfileSettings({ profile }: Props) {
   const [publicPref, setPublicPref] = useState(profile.public_name_preference);
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
+
   const saveProfile = async () => {
     setLoading(true);
 
-    await fetch("/api/profile/update", {
+    const res = await fetch("/api/profile/update", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -33,6 +38,10 @@ export default function ProfileSettings({ profile }: Props) {
         public_name_preference: publicPref,
       }),
     });
+
+    if (res.ok) {
+      router.refresh();
+    }
 
     setLoading(false);
   };
@@ -56,23 +65,25 @@ export default function ProfileSettings({ profile }: Props) {
       </FieldGroup>
 
       <ToggleGroup>
-        <label>
+        <ToggleOption $active={publicPref === "display_name"}>
+          <RadioDot $active={publicPref === "display_name"} />
+          Full name
           <input
             type="radio"
             checked={publicPref === "display_name"}
             onChange={() => setPublicPref("display_name")}
           />
-          Show display name
-        </label>
+        </ToggleOption>
 
-        <label>
+        <ToggleOption $active={publicPref === "username"}>
+          <RadioDot $active={publicPref === "username"} />
+          Username
           <input
             type="radio"
             checked={publicPref === "username"}
             onChange={() => setPublicPref("username")}
           />
-          Show username
-        </label>
+        </ToggleOption>
       </ToggleGroup>
 
       <Button disabled={loading} onClick={saveProfile}>

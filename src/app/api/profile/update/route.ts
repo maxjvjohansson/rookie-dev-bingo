@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (typeof body.username === "string") {
-    update.username = body.username.toLowerCase().trim();
+    update.username = body.username.trim();
   }
 
   if (

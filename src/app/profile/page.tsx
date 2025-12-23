@@ -1,11 +1,12 @@
 import { getUser } from "@/lib/supabase/getUser";
 import { getUserProfile } from "@/lib/supabase/profile";
 import Profile from "@/components/Profile/Profile";
+import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
   const user = await getUser();
   if (!user) {
-    return <div>Please log in to view your profile.</div>;
+    return redirect("/");
   }
 
   const profile = await getUserProfile(user.id);
