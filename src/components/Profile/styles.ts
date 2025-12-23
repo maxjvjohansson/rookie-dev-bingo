@@ -127,14 +127,28 @@ export const RadioDot = styled.span<{ $active: boolean }>`
 `;
 
 export const Button = styled.button`
+  margin-top: ${({ theme }) => theme.spacing.sm};
   padding: ${({ theme }) => theme.spacing.sm};
-  border-radius: ${({ theme }) => theme.radius.sm};
   background: ${({ theme }) => theme.colors.purple};
+  border: none;
   color: white;
+  border-radius: ${({ theme }) => theme.radius.md};
   font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.purpleLight};
+  }
 `;
 
 export const CTAButton = styled(Button)`
   width: 100%;
-  margin-top: ${({ theme }) => theme.spacing.lg};
+  margin-top: ${({ theme }) => theme.spacing.md};
+
+  ${({ theme }) => theme.media.md} {
+    width: auto;
+    padding-inline: ${({ theme }) => theme.spacing.sm};
+  }
 `;

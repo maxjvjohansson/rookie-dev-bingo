@@ -23,11 +23,13 @@ export default function ProfileSettings({ profile }: Props) {
   const [username, setUsername] = useState(profile.username ?? "");
   const [publicPref, setPublicPref] = useState(profile.public_name_preference);
   const [loading, setLoading] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   const router = useRouter();
 
   const saveProfile = async () => {
     setLoading(true);
+    setSaved(false);
 
     const res = await fetch("/api/profile/update", {
       method: "POST",
@@ -40,7 +42,10 @@ export default function ProfileSettings({ profile }: Props) {
     });
 
     if (res.ok) {
+      setSaved(true);
       router.refresh();
+
+      setTimeout(() => setSaved(false), 2000);
     }
 
     setLoading(false);
@@ -51,16 +56,24 @@ export default function ProfileSettings({ profile }: Props) {
       <h3>Public profile</h3>
 
       <FieldGroup>
-        <label>Display name</label>
+        <label htmlFor="display_name">Display name</label>
         <Input
+          id="display_name"
+          name="display_name"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
         />
       </FieldGroup>
 
       <FieldGroup>
-        <label>Username</label>
-        <Input value={username} onChange={(e) => setUsername(e.target.value)} />
+        <label htmlFor="username">Username</label>
+        <Input
+          id="username"
+          name="username"
+          value={username}
+          autoComplete="false"
+          onChange={(e) => setUsername(e.target.value)}
+        />
         <HelperText>Used for links and leaderboard</HelperText>
       </FieldGroup>
 
@@ -87,7 +100,7 @@ export default function ProfileSettings({ profile }: Props) {
       </ToggleGroup>
 
       <Button disabled={loading} onClick={saveProfile}>
-        {loading ? "Saving…" : "Save changes"}
+        {loading ? "Saving…" : saved ? "Saved ✓" : "Save changes"}
       </Button>
     </FormSection>
   );

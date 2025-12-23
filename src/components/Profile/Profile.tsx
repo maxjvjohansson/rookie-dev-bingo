@@ -4,7 +4,14 @@ import Link from "next/link";
 import { UserProfile } from "@/types/userProfileTypes";
 import ProfileStats from "./ProfileStats";
 import ProfileSettings from "./ProfileSettings";
-import { Wrapper, Title, CTAButton, HeadingWrapper, Subtitle } from "./styles";
+import {
+  Wrapper,
+  Title,
+  CTAButton,
+  HeadingWrapper,
+  Subtitle,
+  HeaderWrapper,
+} from "./styles";
 
 interface Props {
   profile: UserProfile;
@@ -13,7 +20,7 @@ interface Props {
 export default function Profile({ profile }: Props) {
   return (
     <Wrapper>
-      <HeadingWrapper>
+      <HeaderWrapper>
         <HeadingWrapper>
           <Title>Profile</Title>
           <Subtitle>
@@ -21,10 +28,11 @@ export default function Profile({ profile }: Props) {
             secure.
           </Subtitle>
         </HeadingWrapper>
+
         <CTAButton as={Link} href="/board">
           Go to your board
         </CTAButton>
-      </HeadingWrapper>
+      </HeaderWrapper>
 
       <ProfileStats profile={profile} />
       <ProfileSettings profile={profile} />
